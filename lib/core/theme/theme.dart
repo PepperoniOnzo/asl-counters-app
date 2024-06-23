@@ -8,4 +8,4 @@ abstract class AppFontFamilies {
 
 final appThemeData = ThemeData(
     fontFamily: AppFontFamilies.montserrat,
-    scaffoldBackgroundColor: AppColors.primary);
+    scaffoldBackgroundColor: AppColors.whiteBackground);

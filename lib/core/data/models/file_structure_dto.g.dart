@@ -1,11 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'model_dto.dart';
+part of 'file_structure_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ModelDto _$ModelDtoFromJson(Map<String, dynamic> json) => ModelDto();
-
-Map<String, dynamic> _$ModelDtoToJson(ModelDto instance) => <String, dynamic>{};
+FileStructureDto _$FileStructureDtoFromJson(Map<String, dynamic> json) =>
+    FileStructureDto(
+      id: json['id'] as String,
+      isDirectory: json['is_directory'] as bool,
+    );

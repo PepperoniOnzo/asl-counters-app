@@ -9,7 +9,7 @@ class SnackBarUtil {
           {required String message}) =>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message),
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.white,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.w),
       ));
@@ -17,7 +17,7 @@ class SnackBarUtil {
   static void showError(BuildContext context, {String? error}) =>
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error ?? '', style: AppTextStyles.primary),
-        backgroundColor: AppColors.primary,
+        backgroundColor: AppColors.white,
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.w),
       ));

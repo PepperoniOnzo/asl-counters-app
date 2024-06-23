@@ -35,32 +35,27 @@ class ApiService {
         case ApiRequestType.get:
           response = await _dio.get('$_baseUrl$path',
               queryParameters: query,
-              options: Options(
-                  responseType: ResponseType.json, headers: _headers()));
+              options: Options(responseType: ResponseType.json));
         case ApiRequestType.post:
           response = await _dio.post('$_baseUrl$path',
               queryParameters: query,
               data: jsonEncode(body),
-              options: Options(
-                  responseType: ResponseType.json, headers: _headers()));
+              options: Options(responseType: ResponseType.json));
         case ApiRequestType.put:
           response = await _dio.put('$_baseUrl$path',
               queryParameters: query,
               data: data ?? jsonEncode(body),
-              options: Options(
-                  responseType: ResponseType.json, headers: _headers()));
+              options: Options(responseType: ResponseType.json));
         case ApiRequestType.delete:
           response = await _dio.delete('$_baseUrl$path',
               queryParameters: query,
               data: data ?? jsonEncode(body),
-              options: Options(
-                  responseType: ResponseType.json, headers: _headers()));
+              options: Options(responseType: ResponseType.json));
         case ApiRequestType.patch:
           response = await _dio.patch('$_baseUrl$path',
               queryParameters: query,
               data: jsonEncode(body),
-              options: Options(
-                  responseType: ResponseType.json, headers: _headers()));
+              options: Options(responseType: ResponseType.json));
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -117,11 +112,5 @@ class ApiService {
 
     return NetworkResponse.error(
         e.response!.statusCode!, e.response!.statusMessage);
-  }
-
-  Map<String, dynamic>? _headers() {
-    final String? token = '';
-
-    return token == null ? null : {'Authorization': 'Bearer $token'};
   }
 }

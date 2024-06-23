@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,10 +5,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/constants/app_routes.dart';
-import 'core/data/repository/repository.dart';
+import 'core/data/repository/app_repository.dart';
+import 'core/network/api_service.dart';
+import 'core/services/app_service.dart';
 import 'core/theme/theme.dart';
 import 'generated/l10n.dart';
-import 'src/home_screen.dart';
+import 'src/earch/search_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,12 +19,18 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+
+  static final AppRepository _appRepository =
+      AppRepository(apiService: ApiService());
+  static final AppService _appService =
+      AppService(appRepository: _appRepository);
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<Repository>.value(value: Repository()),
-        RepositoryProvider<Service>.value(value: Service()),
+        RepositoryProvider<AppRepository>.value(value: _appRepository),
+        RepositoryProvider<AppService>.value(value: _appService),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),
@@ -42,7 +49,7 @@ class MainApp extends StatelessWidget {
                 ],
                 initialRoute: AppRoutes.initial,
                 routes: {
-                  AppRoutes.initial: (context) => const HomeScreen(),
+                  AppRoutes.initial: (context) => const SearchScreen(),
                 },
               )),
     );
