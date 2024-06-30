@@ -11,3 +11,9 @@ FileStructureDto _$FileStructureDtoFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       isDirectory: json['is_directory'] as bool,
     );
+
+Map<String, dynamic> _$FileStructureDtoToJson(FileStructureDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'is_directory': instance.isDirectory,
+    };

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/services/app_service.dart';
+import '../../core/services/caching_service.dart';
 import '../../core/utils/snackbar_util.dart';
 import 'bloc/search_bloc.dart';
 import 'widgets/file_widget.dart';
@@ -14,7 +15,9 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchBloc(appService: context.read<AppService>()),
+      create: (context) => SearchBloc(
+          appService: context.read<AppService>(),
+          cachingService: context.read<CachingService>()),
       child: BlocConsumer<SearchBloc, SearchState>(
         listener: (context, state) => state.status.callback(
           onError: (error) {
@@ -65,22 +68,30 @@ class SearchScreen extends StatelessWidget {
                   child: Padding(
                     padding:
                         EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h),
-                    child: GridView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: state.files.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 5,
-                          crossAxisSpacing: 5.w,
-                          mainAxisSpacing: 5.h),
-                      itemBuilder: (context, index) => FileWidget(
-                        onTap: () {
-                          context
-                              .read<SearchBloc>()
-                              .add(OnFilePressed(file: state.files[index]));
-                        },
-                        file: state.files[index],
-                      ),
-                    ),
+                    child: state.requestInProcess
+                        ? const Align(
+                          child: CircularProgressIndicator(
+                              color: AppColors.blue,
+                              backgroundColor: AppColors.grey,
+                              strokeCap: StrokeCap.round,
+                            ),
+                        )
+                        : GridView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: state.files.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 5,
+                                    crossAxisSpacing: 5.w,
+                                    mainAxisSpacing: 5.h),
+                            itemBuilder: (context, index) => FileWidget(
+                              onTap: () {
+                                context.read<SearchBloc>().add(
+                                    OnFilePressed(file: state.files[index]));
+                              },
+                              file: state.files[index],
+                            ),
+                          ),
                   ),
                 )
               ],

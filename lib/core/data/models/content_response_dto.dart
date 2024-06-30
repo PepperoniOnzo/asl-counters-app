@@ -4,7 +4,7 @@ import 'file_structure_dto.dart';
 
 part 'content_response_dto.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable()
 class ContentResponseDto {
   const ContentResponseDto({required this.content});
 
@@ -13,4 +13,5 @@ class ContentResponseDto {
   factory ContentResponseDto.fromJson(Map<String, dynamic> json) =>
       _$ContentResponseDtoFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ContentResponseDtoToJson(this);
 }

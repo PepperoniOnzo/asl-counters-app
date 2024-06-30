@@ -27,6 +27,7 @@ class ApiService {
     Map<String, dynamic>? query,
     bool isFromRefresh = false,
     T Function(dynamic)? mapToJson,
+    Options? options,
   }) async {
     Response<dynamic>? response;
 
@@ -35,7 +36,7 @@ class ApiService {
         case ApiRequestType.get:
           response = await _dio.get('$_baseUrl$path',
               queryParameters: query,
-              options: Options(responseType: ResponseType.json));
+              options: options ?? Options(responseType: ResponseType.json));
         case ApiRequestType.post:
           response = await _dio.post('$_baseUrl$path',
               queryParameters: query,

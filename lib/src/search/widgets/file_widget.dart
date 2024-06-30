@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/data/models/file_structure_dto.dart';
+import 'cached_image.dart';
 
 class FileWidget extends StatelessWidget {
   const FileWidget({required this.onTap, required this.file, super.key});
@@ -28,7 +29,7 @@ class FileWidget extends StatelessWidget {
                       Text(file.id)
                     ],
                   )
-                : Text('data')),
+                : CachedImage(id: file.id)),
       ),
     );
   }

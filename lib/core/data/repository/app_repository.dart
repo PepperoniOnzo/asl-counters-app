@@ -1,3 +1,6 @@
+
+import 'package:dio/dio.dart';
+
 import '../../network/api_constants.dart';
 import '../../network/api_service.dart';
 import '../../network/network_response.dart';
@@ -8,11 +11,12 @@ class AppRepository {
 
   final ApiService _apiService;
 
-  Future<NetworkResponse<dynamic>> getImage({required String path}) =>
+  Future<NetworkResponse<List<int>>> getImage({required String path}) =>
       _apiService.request(
         query: {'path': path},
         ApiConstants.image,
         type: ApiRequestType.get,
+        options: Options(responseType: ResponseType.bytes),
       );
 
   Future<NetworkResponse<ContentResponseDto>> getContent(

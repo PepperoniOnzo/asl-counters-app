@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,9 +7,10 @@ import 'core/constants/app_routes.dart';
 import 'core/data/repository/app_repository.dart';
 import 'core/network/api_service.dart';
 import 'core/services/app_service.dart';
+import 'core/services/caching_service.dart';
 import 'core/theme/theme.dart';
 import 'generated/l10n.dart';
-import 'src/earch/search_screen.dart';
+import 'src/search/search_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +24,8 @@ class MainApp extends StatelessWidget {
       AppRepository(apiService: ApiService());
   static final AppService _appService =
       AppService(appRepository: _appRepository);
+  static final CachingService _cachingService =
+      CachingService(appService: _appService);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class MainApp extends StatelessWidget {
       providers: [
         RepositoryProvider<AppRepository>.value(value: _appRepository),
         RepositoryProvider<AppService>.value(value: _appService),
+        RepositoryProvider<CachingService>.value(value: _cachingService),
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),

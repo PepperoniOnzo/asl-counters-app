@@ -12,3 +12,8 @@ ContentResponseDto _$ContentResponseDtoFromJson(Map<String, dynamic> json) =>
           .map((e) => FileStructureDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
+
+Map<String, dynamic> _$ContentResponseDtoToJson(ContentResponseDto instance) =>
+    <String, dynamic>{
+      'content': instance.content,
+    };
